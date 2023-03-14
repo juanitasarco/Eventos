@@ -5,8 +5,8 @@ import java.util.concurrent.TimeoutException;
 
 public class main {
     public static void main(String[] args) throws TimeoutException, InterruptedException, IOException {
-        OrderProducer producer = new OrderProducer();
-        OrderConsumer consumer = new OrderConsumer();
+        Productor producer = new Productor();
+        Consumidor consumer = new Consumidor();
 
         Thread consumerThread = new Thread(() -> {
             try {
@@ -15,14 +15,11 @@ public class main {
                 e.printStackTrace();
             }
         });
-
         consumerThread.start();
 
-        Thread.sleep(2000); // Espera de 2 segundos para asegurarnos de que el consumidor esté en línea antes de enviar un pedido
-        Order order = new Order("124", "Juan Perez", "juanperez@example.com", "Calle 123 #27-23");
-        producer.sendOrder(order);
-        Thread.sleep(5000); // Espera de 2 segundos para dar tiempo al consumidor para procesar el mensaje
-        System.exit(0);
+        Thread.sleep(5000);
+        DatosOrden order = new DatosOrden("12", "Juan Perez", "juanperez@gmail.com", "Calle 123 #27-23");
+        producer.enviarOrden(order);
     }
 }
 
